@@ -1,15 +1,15 @@
 services:
   geoserver:
-    container_name: geonum_geoserver
-    image: docker.osgeo.org/geoserver:2.26.0
+    container_name: geonum_geoserver #nom du container (donc création du conteneur)
+    image: docker.osgeo.org/geoserver:2.26.0 #créer les contenus d'un conteneur à partir d'une image déjà prête de Géoserveur 
     environment:
       - RUN_UNPRIVILEGED=true
       - CHANGE_OWNERSHIP_ON_FOLDERS="/opt /opt/geoserver_data/ /mnt/geoserver_geodata"
       - CORS_ENABLED=true
       - SKIP_DEMO_DATA=true
     ports:
-      - "8080:8080"
-    volumes:
+      - "8080:8080" #externe (on utilise le même port que l'interne pour pouvoir communqiuer avec le conteneur)/ interne (le conteneur agit sur un port par déafut qui est 8080)
+    volumes: #permet de ne pas perdre les données quand on a fini avec le conteneur
       - ./geoserver/opt:/opt/geoserver_data
 
   web:
